@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jugaria</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main id="inicio">
+        <h1>JUGARIA</h1>
+        <button id="comenzar">COMENZAR</button>
+        <button id="historial">Historial</button>
+    </main>
+    <main id="registro" hidden>
+        <div class="encabezado-registro">
+            <button id="volver" aria-label="Volver al inicio">←</button>
+            <h2>Registrar jugadores</h2>
+        </div>
+        <p>Escribe los nombres del menor al mayor.</p>
+        <div class="agregar-jugador">
+            <input 
+            type="text"
+            id="nombreJugador"
+            placeholder="Nombre del jugador"
+            >
+            <button id="agregar">+</button>
+        </div>
+        <div class="encabezado-jugadores">
+            <span>Jugadores registrados</span>
+            <span id="contadorJugadores">0 jugadores</span>
+        </div>
+        <ol id="listaJugadores"></ol>
+        <p id="mensajeMinimo">Mínimo 4 jugadores</p>
+        <button id="siguienteRegistro" disabled>SIGUIENTE → </button>
+    </main>
+    <main id="formarEquipos" hidden>
+        <div class="encabezado-formarEquipos">
+            <button id="volverRegistro" aria-label="Volver al Registro">←</button>
+            <h2>Formar Equipos</h2>
+        </div>
+        <p>¿Cuántos equipos quieres?</p>
+        <div class="opciones-equipo">
+            <button id="dosEquipos">2 Equipos</button>
+            <button id="tresEquipos">3 Equipos</button>
+        </div>
+        <div id="resultadoEquipos"></div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
