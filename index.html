@@ -45,7 +45,79 @@
             <button id="tresEquipos">3 Equipos</button>
         </div>
         <div id="resultadoEquipos"></div>
+        <div id="resultadoEquipos"></div>
+
+        <button id="siguienteEquipos" disabled>
+            SIGUIENTE →
+        </button>
+</main>
     </main>
+    <main id="personalizarEquipos" hidden>
+
+    <div class="encabezado-personalizar">
+        <button id="volverEquipos" aria-label="Volver a formar equipos">←</button>
+        <h2>Personalizar equipos</h2>
+    </div>
+
+    <p>¡Dale personalidad a tus equipos!</p>
+
+    <div id="listaPersonalizacion"></div>
+
+    <button id="siguientePersonalizar" disabled>
+        SIGUIENTE →
+    </button>
+
+    </main>
+
+<main id="modoJuego" hidden>
+
+    <header class="encabezado-modo">
+        <button id="volverPersonalizar">❮</button>
+        <h2>Elegir Modo de Juego</h2>
+    </header>
+
+    <p>Elige cómo quieres jugar</p>
+
+    <div id="opcionesModo">
+
+            <button class="modo" data-modo="dibujar">
+                <span>✏️</span>
+            DIBUJAR
+            </button>
+
+            <button class="modo" data-modo="hablar">
+                <span>💬</span>
+            HABLAR
+            </button>
+
+            <button class="modo" data-modo="tararear">
+                <span>🎵</span>
+            TARAREAR
+            </button>
+
+            <button class="modo" data-modo="actuar">
+                <span>🎭</span>
+            ACTUAR
+            </button>
+
+            <button class="modo" data-modo="mezcla">
+                <span>🎲</span>
+            MEZCLA
+            </button>
+
+            <button class="modo" data-modo="personalizar">
+                <span>✏️</span>
+            PERSONALIZAR
+            </button>
+
+        </div>
+
+        <button id="siguienteModo" disabled>
+        SIGUIENTE ❯
+        </button>
+
+    </main>
+
     <script src="script.js"></script>
 </body>
 </html>

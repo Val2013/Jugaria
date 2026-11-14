@@ -6,7 +6,20 @@ const nombreJugador = document.getElementById("nombreJugador");
 const agregar = document.getElementById("agregar");
 const listaJugadores = document.getElementById("listaJugadores");
 let jugadores = [];
-let equiposActuales = []; 
+let equiposActuales = [];
+let nombresEquipos = []; 
+
+const avatares = [
+    "avatarAlfil.png",
+    "avatarCaballo.png",
+    "avatarPeon.png",
+    "avatarRey.png",
+    "avatarReyna.png",
+    "avatarTorre.png"
+];
+
+let avataresElegidos = [];
+
 const contadorJugadores = document.getElementById("contadorJugadores");
 const siguienteRegistro = document.getElementById("siguienteRegistro");
 const mensajeMinimo = document.getElementById("mensajeMinimo");
@@ -15,6 +28,15 @@ const volverRegistro = document.getElementById("volverRegistro");
 const dosEquipos = document.getElementById("dosEquipos");
 const tresEquipos = document.getElementById("tresEquipos");
 const resultadoEquipos = document.getElementById("resultadoEquipos");
+const personalizarEquipos = document.getElementById("personalizarEquipos");
+const volverEquipos = document.getElementById("volverEquipos");
+const siguienteEquipos = document.getElementById("siguienteEquipos");
+const listaPersonalizacion = document.getElementById("listaPersonalizacion");
+const siguientePersonalizar = document.getElementById("siguientePersonalizar");
+const modoJuego = document.getElementById("modoJuego");
+const volverPersonalizar = document.getElementById("volverPersonalizar");
+const siguienteModo = document.getElementById("siguienteModo");
+
 
 comenzar.addEventListener("click",function(){
     registro.hidden = false;
@@ -156,17 +178,22 @@ function mostrarEquipos(equipos){
 dosEquipos.addEventListener("click", function(){
     equiposActuales = generarEquipos(2);
     mostrarEquipos(equiposActuales);
+
+    siguienteEquipos.disabled = false;
 });
 tresEquipos.addEventListener("click", function() {
     equiposActuales = generarEquipos(3);
     mostrarEquipos(equiposActuales);
+
+    siguienteEquipos.disabled = false;
 });
 
 function moverJugador(equipoOrigen, posicionJugador) {
 
-    if (equiposActuales[equipoOrigen].length <= 1){
-        alert("El equipo debe tener al menos un jugador.");
-    }
+    if (equiposActuales[equipoOrigen].length <= 1) {
+    alert("El equipo debe tener al menos un jugador.");
+    return;
+}
 
     // Identificar el siguiente equipo
     const equipoDestino = (equipoOrigen + 1) % equiposActuales.length;
@@ -182,3 +209,124 @@ function moverJugador(equipoOrigen, posicionJugador) {
 
     console.log(equiposActuales);
 }
+volverEquipos.addEventListener("click", function() {
+    personalizarEquipos.hidden = true;
+    formarEquipos.hidden = false;
+});
+
+siguienteEquipos.addEventListener("click", function() {
+    formarEquipos.hidden = true;
+    personalizarEquipos.hidden = false;
+
+    mostrarPersonalizacion();
+});
+
+function mostrarPersonalizacion() {
+
+    // Limpiar los campos anteriores
+    listaPersonalizacion.innerHTML = "";
+
+    // Crear un campo por cada equipo
+    for (let i = 0; i < equiposActuales.length; i++) {
+
+        const contenedor = document.createElement("div");
+        contenedor.classList.add("personalizar-equipo");
+
+        const titulo = document.createElement("h3");
+        titulo.textContent = "Equipo " + (i + 1);
+
+        const campoNombre = document.createElement("input");
+        campoNombre.type = "text";
+        campoNombre.placeholder = "Nombre del equipo";
+        campoNombre.id = "nombreEquipo" + i;
+
+        campoNombre.value = nombresEquipos[i] || "";
+
+        campoNombre.addEventListener("input", function() {
+        nombresEquipos[i] = campoNombre.value;
+        validarPersonalizacion();
+});
+
+contenedor.appendChild(titulo);
+contenedor.appendChild(campoNombre);
+
+
+// Crear el espacio para los avatares
+const contenedorAvatares = document.createElement("div");
+contenedorAvatares.classList.add("opciones-avatares");
+
+// Recorrer las imágenes disponibles
+for (let j = 0; j < avatares.length; j++) {
+
+    const imagen = document.createElement("img");
+
+    imagen.src = "Img/" + avatares[j];
+    imagen.alt = avatares[j];
+    imagen.classList.add("avatar-opcion");
+
+
+if (avataresElegidos[i] === avatares[j]) {
+    imagen.classList.add("avatar-seleccionado");
+}
+
+imagen.addEventListener("click", function() {
+    // Guardar el avatar elegido para este equipo
+    avataresElegidos[i] = avatares[j];
+
+    // Quitar la selección anterior
+    const imagenes = contenedorAvatares.querySelectorAll(".avatar-opcion");
+
+    imagenes.forEach(function(avatar) {
+        avatar.classList.remove("avatar-seleccionado");
+    });
+
+    // Marcar la nueva selección
+    imagen.classList.add("avatar-seleccionado");
+    validarPersonalizacion();
+    console.log(avataresElegidos);
+    });
+
+
+    contenedorAvatares.appendChild(imagen);
+}
+
+// Agregar las imágenes al equipo
+
+    // Agregar las imágenes al equipo
+    contenedor.appendChild(contenedorAvatares);
+
+    // Mostrar el equipo en pantalla
+    listaPersonalizacion.appendChild(contenedor);
+
+    } // Cierra el ciclo for de los equipos
+
+    validarPersonalizacion();
+
+} // Cierra la función mostrarPersonalizacion
+
+function validarPersonalizacion() {
+    let equiposCompletos = true;
+
+    for (let i = 0; i < equiposActuales.length; i++) {
+
+        const nombre = (nombresEquipos[i] || "").trim();
+        const avatar = avataresElegidos[i];
+
+        if (nombre === "" || !avatar) {
+            equiposCompletos = false;
+        }
+    }
+
+    siguientePersonalizar.disabled = !equiposCompletos;
+}
+
+siguientePersonalizar.addEventListener("click", function() {
+    personalizarEquipos.hidden = true;
+    modoJuego.hidden = false;
+});
+
+volverPersonalizar.addEventListener("click", function() {
+    modoJuego.hidden = true;
+    personalizarEquipos.hidden = false;
+});
+
